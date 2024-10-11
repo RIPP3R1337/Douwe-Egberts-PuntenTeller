@@ -6,4 +6,4 @@ Simpele teller voor douwe egberts punten. Hoef je alleen maar te tellen hoeveel 
 
 ## Wat is stickers opslaan en laden?
 
-- Heel logisch, je bent de hele dag bezig en je wilt de stickers die je nu hebt opslaan. Dat kan! En als je weer eens 100 stickers en wat bakjes koffie verder bent kun je dus gewoon je oude opgeslagen punten weer laden en zo weer verder.
+- Heel logisch, je bent de hele dag bezig en je wilt de stickers die je nu hebt opslaan. Dat kan! Als je later weer 100 stickers hebt verzameld en wat kopjes koffie verder bent, kun je gewoon je eerder opgeslagen punten laden en verder gaan. De opgeslagen .txt bestand komt op de plek waar je de .exe neer zet. Raak je de .txt kwijt dan kan het programma hem helaas niet terug vinden
