@@ -114,7 +114,7 @@ class DouweEgbertsApp(QWidget):
                         count = input_field.text() or "0"
                         
                         if not count.replace('.', '').replace('-', '').isdigit():
-                            raise ValueError(f"Ongeldige invoering voor {point_type}: >> {count} << (je kan alleen nummers toevoegen)")
+                            raise ValueError(f"Ongeldige cijfer bij {point_type}: >> {count} <<")
                         
                         
                         file.write(f"{point_type}-Punten: {count} stickers\n")
