@@ -9,7 +9,7 @@ class DouweEgbertsApp(QWidget):
         super().__init__()
         self.setWindowTitle('Douwe Egberts Punten Teller')
         self.setWindowIcon(QIcon('voucher.ico'))
-        self.setFixedSize(700, 700)
+        self.setFixedSize(800, 800)
 
         # Set layout
         layout = QVBoxLayout()
@@ -28,6 +28,7 @@ class DouweEgbertsApp(QWidget):
         self.create_input(layout, "15 Douwe Egberts punten", "15")
         self.create_input(layout, "10 Douwe Egberts punten", "10")
         self.create_input(layout, "8 Douwe Egberts punten", "8")
+        self.create_input(layout, "5 Douwe Egberts punten", "5")
         self.create_input(layout, "4 Douwe Egberts punten", "4")
 
         # Conversion Button
@@ -90,7 +91,7 @@ class DouweEgbertsApp(QWidget):
     def convert_to_euro(self):
         # Get inputs and calculate the total points
         total_points = 0
-        point_values = {'100': 100, '40': 40, '20': 20, '15': 15, '10': 10, '8': 8, '4': 4}
+        point_values = {'100': 100, '40': 40, '20': 20, '15': 15, '10': 10, '8': 8, '5': 5, '4': 4}
 
         try:
             for point_type, point_value in point_values.items():
