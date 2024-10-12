@@ -8,7 +8,7 @@ class DouweEgbertsApp(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('Douwe Egberts Punten Teller')
-        self.setWindowIcon(QIcon('Douwe-Egberts-PuntenScanner/voucher.ico'))
+        self.setWindowIcon(QIcon('voucher,ico'))
         self.setFixedSize(700, 700)
 
         # Set layout
@@ -52,8 +52,18 @@ class DouweEgbertsApp(QWidget):
         self.load_button.setFixedSize(150, 50)
         self.load_button.clicked.connect(self.load_sticker_amounts)
 
+
+        # Reset button
+        self.reset_button = QPushButton("Reset", self)
+        self.reset_button.setFont(QFont('Arial', 14))
+        self.reset_button.setFixedSize(100, 50)
+        self.reset_button.clicked.connect(self.reset_stickers)
+
+
+
         # Add both buttons to the horizontal layout (aligned left)
         bottom_layout.addWidget(self.save_button, alignment=Qt.AlignmentFlag.AlignLeft)
+        bottom_layout.addWidget(self.reset_button, alignment=Qt.AlignmentFlag.AlignCenter)
         bottom_layout.addWidget(self.load_button, alignment=Qt.AlignmentFlag.AlignRight)
 
         # Add the horizontal layout at the end of the main layout
@@ -122,6 +132,14 @@ class DouweEgbertsApp(QWidget):
             self.result_label.setText("Kaarten succesvol geladen!")
         except Exception as e:
             self.result_label.setText(f"Error loading sticker amounts: {e}")
+
+    def reset_stickers(self):
+        for input_field in self.point_inputs.values():
+            input_field.setText("0")
+        self.result_label.setText("")
+
+
+
 
 # Run the application
 if __name__ == '__main__':
