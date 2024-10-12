@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QWidget
+from PyQt6.QtWidgets import QApplication, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QWidget, QMessageBox
 from PyQt6.QtGui import QFont, QIcon
 from PyQt6.QtCore import Qt
 import sys
@@ -8,7 +8,7 @@ class DouweEgbertsApp(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('Douwe Egberts Punten Teller')
-        self.setWindowIcon(QIcon('voucher,ico'))
+        self.setWindowIcon(QIcon('voucher.ico'))
         self.setFixedSize(700, 700)
 
         # Set layout
@@ -104,15 +104,26 @@ class DouweEgbertsApp(QWidget):
             self.result_label.setText("Please enter valid numbers for all fields.")
 
     def save_sticker_amounts(self):
-        try:
-            with open("sticker_counts.txt", "w") as file:
-                for point_type, input_field in self.point_inputs.items():
-                    count = input_field.text() or "0"
-                    file.write(f"{point_type}-Punten: {count} stickers\n")
+        confirmation = QMessageBox.question(self, "Bevestiging",
+                                            "Weet je zeker dat je de gegevens wilt opslaan?",
+                                            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        if  confirmation == QMessageBox.StandardButton.Yes:
+            try:
+                with open("sticker_counts.txt", "w") as file:
+                    for point_type, input_field in self.point_inputs.items():
+                        count = input_field.text() or "0"
+                        
+                        if not count.replace('.', '').replace('-', '').isdigit():
+                            raise ValueError(f"Ongeldige invoering voor {point_type}: >> {count} << (je kan alleen nummers toevoegen)")
+                        
+                        
+                        file.write(f"{point_type}-Punten: {count} stickers\n")
 
-            self.result_label.setText("Kaarten succesvol opgeslagen!")
-        except Exception as e:
-            self.result_label.setText(f"Error saving sticker amounts: {e}")
+                self.result_label.setText("Kaarten succesvol opgeslagen!")
+            except ValueError as ve:
+                self.result_label.setText(f"Error: {ve}")
+            except Exception as e:
+                self.result_label.setText(f"Error saving sticker amounts: {e}")
 
     def load_sticker_amounts(self):
         if not os.path.exists("sticker_counts.txt"):
@@ -134,9 +145,13 @@ class DouweEgbertsApp(QWidget):
             self.result_label.setText(f"Error loading sticker amounts: {e}")
 
     def reset_stickers(self):
-        for input_field in self.point_inputs.values():
-            input_field.setText("0")
-        self.result_label.setText("")
+        reset_confirmation = QMessageBox.warning(self, "Bevestiging",
+                                            "Weet je zeker dat je op de reset knop wilt klikken?",
+                                            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        if  reset_confirmation == QMessageBox.StandardButton.Yes:
+            for input_field in self.point_inputs.values():
+                input_field.setText("")
+            self.result_label.setText("")
 
 
 
